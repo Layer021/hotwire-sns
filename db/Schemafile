@@ -1,0 +1,40 @@
+# encoding: utf-8
+
+create_table "admins", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "管理者" do |t|
+  t.string :name, limit: 191, default: "", null: false
+  t.string :email, default: "", null: false
+  # t.string :encrypted_password, null: false, default: ""
+  t.timestamps precision: 6, null: false
+  t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
+end
+
+create_table "users", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "ユーザー" do |t|
+  t.string :name, limit: 191, default: "", null: false
+  t.string :email, default: "", null: false
+  t.string :encrypted_password, null: false, default: ""
+  t.timestamps precision: 6, null: false
+  t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+end
+
+create_table "posts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "投稿" do |t|
+  t.string :title, limit: 191, default: "", null: false
+  t.bigint :user_id, null: false
+  t.text :content, null: false
+  t.timestamps precision: 6, null: false
+  t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
+end
+
+create_table "liked_posts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "いいねした投稿" do |t|
+  t.bigint :post_id, null: false
+  t.bigint :user_id, null: false
+  t.timestamps precision: 6, null: false
+  t.index ["post_id", "user_id"], name: "index_liked_posts_on_post_id_and_user_id", unique: true, using: :btree
+end
+
+# folllow状態を管理するテーブル
+create_table "following_users", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "フォロー" do |t|
+  t.bigint :user_id, null: false, comment: "フォローする側のユーザーID"
+  t.bigint :following_user_id, null: false, comment: "フォローされる側のユーザーID"
+  t.timestamps precision: 6, null: false
+  t.index ["user_id", "following_user_id"], name: "index_following_users_on_user_id_and_following_user_id", unique: true, using: :btree
+end

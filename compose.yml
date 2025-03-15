@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/image/web/Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/project/hotwire_sns:cached
+    ports:
+      - "14000:3000"
+    depends_on:
+      - mysql
+      - mysql-test
+
+  mysql:
+    image: mysql:5.7
+    platform: linux/x86_64
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql
+    ports:
+      - "14306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: hotwire_sns_dev
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+
+  mysql-test:
+    image: mysql:5.7
+    platform: linux/x86_64
+    volumes:
+      - ./docker/data/mysql-test:/var/lib/mysql
+    ports:
+      - "14307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: hotwire_sns_test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret

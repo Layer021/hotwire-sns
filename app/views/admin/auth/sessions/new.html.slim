@@ -1,0 +1,6 @@
+.login-box
+  .login-logo
+    .h1 ENIKK
+  .card.card-outline.card-primary
+    .card-body.login-card-body
+      = button_to "ログイン", admin_github_omniauth_authorize_path, method: :post, class: "btn btn-block btn-primary"
