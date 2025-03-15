@@ -1,5 +1,8 @@
 {
+  "name": "hotwire_sns",
+  "private": true,
   "dependencies": {
     "daisyui": "^5.0.4"
-  }
+  },
+  "version": "1.0.0"
 }

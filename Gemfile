@@ -41,6 +41,9 @@ gem "tailwindcss-rails", "~> 4.2"
 # Authentication
 gem "devise"
 
+gem "rails-i18n"
+gem "devise-i18n"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

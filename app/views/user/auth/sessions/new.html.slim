@@ -1,0 +1,13 @@
+h2.text-2xl.text-center.mt-3.mb-5.font-bold.leading-none
+  | ログイン
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  fieldset.fieldset.bg-base-200.border.border-base-300.p-6.rounded-box.mx-auto
+    = f.label :email, "メールアドレス", class: "fieldset-label"
+    = f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full"
+    = f.label :password, "パスワード", class: "fieldset-label mt-2"
+    = f.password_field :password, autocomplete: "current-password", class: "input w-full"
+    - if devise_mapping.rememberable?
+      = f.label :remember_me, class: "fieldset-label mt-2"
+        = f.check_box :remember_me, class: "checkbox checkbox-xs"
+        | ログイン状態を維持する
+    = f.submit "ログイン", class: "btn btn-neutral mt-2"

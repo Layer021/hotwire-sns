@@ -11,7 +11,7 @@ html
     = javascript_importmap_tags
   body
     = render 'layouts/user/header'
-    main.p-5
-      .container.mx-auto
-        = render 'layouts/user/alert'
+    main.py-5
+      .container.mx-auto.max-w-sm
+        = render "layouts/user/auth_alert"  
         = yield
