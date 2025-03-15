@@ -1,22 +1,14 @@
 header.navbar.bg-base-100.shadow-sm
-  = link_to root_path, class: "btn btn-ghost text-xl" do
-    | Hotwire SNS Sample
-
-
-/ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
-/   ul.navbar-nav
-/     li.nav-item
-/       = link_to "#", class: "nav-link", data: {widget: "pushmenu"} do
-/         i.fas.fa-fw.fa-bars
-/         span.sr-only
-/           | ナビゲーションを開閉
-/   ul.navbar-nav.ml-auto
-/     li.nav-item.dropdown.user-menu
-/       = link_to "#", class: "nav-link dropdown-toggle", data: {toggle: "dropdown"} do
-/         span
-/           | #{current_admin.name}
-/       ul.dropdown-menu.dropdown-menu-lg.dropdown-menu-right
-/         li.user-footer
-/           = button_to delete_admin_session_path, class: "btn btn-default btn-flat float-right btn-block", method: 'delete' do
-/             i.fa.fa-fw.fa-power-off.text-red
-/             | ログアウト
+  .flex-1
+    = link_to root_path, class: "btn btn-ghost text-xl" do
+      | Hotwire SNS Sample
+  - if user_signed_in?
+    .flex-none.mr-3
+      .dropdown.dropdown-end
+        .btn.btn-ghost.btn-circle.avatar[tabindex="0" role="button"]
+          .w-10.rounded-full
+            = image_tag "avatar.svg", alt: current_user.name
+        ul.menu.menu-sm.dropdown-content.bg-base-100.rounded-box.z-1.mt-3.w-52.p-2.shadow[tabindex="0"]
+          li
+            = button_to destroy_user_session_path, method: "delete", class: "cursor-pointer" do
+              | ログアウト
