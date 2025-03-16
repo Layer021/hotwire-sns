@@ -9,7 +9,10 @@ article.list-row.gap-2.pb-2
         = post.created_at.strftime("%Y/%m/%d %H:%M")
     p = post.body
     .mt-1.-mx-2
-      = button_to user_post_likes_path(post), method: :post, class: "btn btn-ghost btn-xs gap-1 text-gray-400" do
+      - has_been_liked = post.has_been_liked_by?(current_user)
+      = button_to user_post_likes_path(post), \
+          method: has_been_liked ? :delete : :post, \
+          class: "btn btn-ghost btn-xs gap-1 text-gray-400 #{has_been_liked ? 'text-secondary' : ''}" do
         svg[
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

@@ -1,9 +1,20 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :registerable, :recoverable:confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
+
+  has_many :liked_post_relationships,
+            class_name: "LikedPost",
+            dependent: :destroy
+
+  # いいねした投稿
+  has_many :liked_posts,
+           through: :liked_post_relationships,
+           source: :post
 
   has_many :following_relationships,
            class_name: "FollowingUser",
@@ -45,5 +56,15 @@ class User < ApplicationRecord
           query.where!("id < ?", latest_cursor) if latest_cursor
           query.where!("id > ?", oldest_cursor) if oldest_cursor
         end
+  end
+
+  # 投稿をいいねする
+  def like_post(post)
+    liked_posts << post
+  end
+
+  # 投稿のいいねを解除する
+  def unlike_post(post)
+    liked_posts.destroy(post)
   end
 end

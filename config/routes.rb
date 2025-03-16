@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post "posts" => "user/posts#create", as: :user_posts
 
   post "posts/:id/likes" => "user/liked_posts#create", as: :user_post_likes
+  delete "posts/:id/likes" => "user/liked_posts#destroy", as: :user_post_unlike
 
   get "users/:id" => "user/users#show", as: :user_user
 
