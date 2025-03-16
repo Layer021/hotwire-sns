@@ -1,10 +1,11 @@
 header.navbar.bg-base-100.shadow-sm
-  .flex-1
+  .navbar-start
+  .navbar-center
     = link_to root_path, class: "btn btn-ghost text-xl" do
       | Hotwire SNS Sample
-  - if user_signed_in?
-    .flex-none.mr-3
-      .dropdown.dropdown-end
+  .navbar-end
+    - if user_signed_in?
+      .dropdown.dropdown-end.mr-2
         .btn.btn-ghost.btn-circle.avatar[tabindex="0" role="button"]
           .w-10.rounded-full
             = image_tag "avatar.svg", alt: current_user.name

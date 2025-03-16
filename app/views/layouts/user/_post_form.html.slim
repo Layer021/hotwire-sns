@@ -1,0 +1,4 @@
+= form_with model: Post.new, url: user_posts_path, method: :post do |form|
+  fieldset.fieldset
+    = form.text_area :body, class: "textarea", placeholder: "最大200文字まで入力できます", rows: 4
+    = form.submit "投稿する", class: "btn btn-neutral mt-2"

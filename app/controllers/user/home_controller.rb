@@ -2,6 +2,6 @@
 
 class User::HomeController < User::ApplicationController
   def index
-    # @posts
+    @posts = current_user.home_timeline_posts
   end
 end

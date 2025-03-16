@@ -1,7 +1,7 @@
 h2.text-2xl.text-center.mt-3.mb-5.font-bold.leading-none
   | ログイン
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  fieldset.fieldset.bg-base-200.border.border-base-300.p-6.rounded-box.mx-auto
+  fieldset.fieldset.bg-base-100.border.border-base-300.p-6.rounded-box.mx-auto
     = f.label :email, "メールアドレス", class: "fieldset-label"
     = f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full"
     = f.label :password, "パスワード", class: "fieldset-label mt-2"
