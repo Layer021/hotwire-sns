@@ -10,6 +10,12 @@ class User::PostsController < User::ApplicationController
     end
   end
 
+  def destroy
+    @post = current_user.posts.find(params[:id])
+    @post.destroy
+    redirect_to root_path, notice: 'Post was successfully destroyed.'
+  end
+
   private
 
     def create_params

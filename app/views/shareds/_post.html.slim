@@ -8,8 +8,7 @@ article.list-row.gap-2.pb-2
       .ml-auto.text-gray-400.text-xs
         = post.created_at.strftime("%Y/%m/%d %H:%M")
     p = post.body
-    .mt-1.-mx-2
-      - has_been_liked = post.has_been_liked_by?(current_user)
+    .flex.mt-1.-mx-2
       = button_to user_post_likes_path(post), \
           method: has_been_liked ? :delete : :post, \
           class: "btn btn-ghost btn-xs gap-1 text-gray-400 #{has_been_liked ? 'text-secondary' : ''}" do
@@ -27,3 +26,17 @@ article.list-row.gap-2.pb-2
             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
           ]
         = "いいね#{post.likes.count > 0 ? " #{post.likes.count}件" : '' }"
+      - if show_delete_button
+        = button_tag "削除する", \
+            class: "btn btn-ghost btn-xs gap-1 text-gray-400 ml-auto", \
+            onclick: "post_delete_modal__#{post.id}.showModal()"
+        dialog id="post_delete_modal__#{post.id}" class="modal"
+          .modal-box
+            h3.text-lg.font-bold 投稿の削除
+            p.py-4 削除した投稿は復元できません。本当に削除しますか？
+            .modal-action
+              = button_tag "キャンセル", class: "btn", type: "button", \
+                  onclick: "post_delete_modal__#{post.id}.close()"
+              = button_to user_post_destroy_path(post), method: :delete, class: "btn btn-error", \
+                  onclick: "post_delete_modal__#{post.id}.close()" do
+                | 削除する

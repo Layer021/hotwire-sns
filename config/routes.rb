@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   post "posts" => "user/posts#create", as: :user_posts
+  delete "posts/:id" => "user/posts#destroy", as: :user_post_destroy
 
   post "posts/:id/likes" => "user/liked_posts#create", as: :user_post_likes
   delete "posts/:id/likes" => "user/liked_posts#destroy", as: :user_post_unlike

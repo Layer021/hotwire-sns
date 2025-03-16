@@ -9,4 +9,6 @@ h1.text-2xl.font-bold.mb-4
 .card.card-border.bg-base-100.border-base-300.overflow-hidden
   .list
     - @posts.each do |post|
-      = render "shareds/post", post:
+      = render "shareds/post", post:, \
+          has_been_liked: post.has_been_liked_by?(current_user), \
+          show_delete_button: post.user == current_user
