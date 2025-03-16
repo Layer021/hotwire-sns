@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get "users/:id" => "user/users#show", as: :user_user
 
+  get "users" => "user/users#index", as: :user_users
   post "users/:id/follows" => "user/following_users#create", as: :user_user_follows
   delete "users/:id/follows" => "user/following_users#destroy", as: :user_user_unfollow
 

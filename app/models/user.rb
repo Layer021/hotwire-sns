@@ -36,6 +36,10 @@ class User < ApplicationRecord
            through: :follower_relationships,
            source: :user
 
+  scope :search_by_keyword, ->(keyword) {
+    where("name LIKE ?", "%#{keyword}%")
+  }
+
   # ホーム画面用の投稿を取得する
   def home_timeline_posts(latest_cursor: nil, oldest_cursor: nil)
     Post.eager_load(:user, :likes)

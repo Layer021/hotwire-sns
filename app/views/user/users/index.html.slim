@@ -1,0 +1,17 @@
+h1.text-2xl.font-bold.mb-4
+  = "「#{@keyword}」の検索結果"
+.card.card-border.bg-base-100.border-base-300.overflow-hidden
+  .list
+    - if @users.exists?
+      - @users.each do |user|
+        article.list-row
+          .list-col-grow
+            = render "shareds/user", \
+                user:, \
+                show_follow_button: user != current_user, \
+                has_been_followed: user.has_been_followed_by?(current_user)
+    - else
+      article.list-row
+        .list-col-grow
+          p.text-center
+            = "ユーザーが見つかりませんでした"

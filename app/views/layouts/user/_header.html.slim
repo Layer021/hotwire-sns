@@ -5,11 +5,24 @@ header.navbar.bg-base-100.shadow-sm.sticky.inset-x-0.top-0.z-50
       | Hotwire SNS Sample
   .navbar-end
     - if user_signed_in?
+      = form_with url: user_users_path, method: :get, class: "input w-auto mr-4" do
+        svg[
+          class="h-[1em] opacity-50"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        ]
+          g[stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"]
+            circle[cx="11" cy="11" r="8"]
+            path[d="m21 21-4.3-4.3"]
+        = text_field_tag :q, nil, type: :search, placeholder: "ユーザー検索"
+        = button_tag type: :submit, class: "hidden"
       .dropdown.dropdown-end.mr-2
         .btn.btn-ghost.btn-circle.avatar[tabindex="0" role="button"]
           .w-10.rounded-full
             = image_tag "avatar.svg", alt: current_user.name
         ul.menu.menu-sm.dropdown-content.bg-base-100.rounded-box.z-1.mt-3.w-52.p-2.shadow[tabindex="0"]
-          li
-            = button_to destroy_user_session_path, method: "delete", class: "cursor-pointer" do
+          li.col-span-full
+            = button_to destroy_user_session_path, method: "delete", \
+                class: "w-full cursor-pointer text-left", \
+                form: {class: "block"} do
               | ログアウト
