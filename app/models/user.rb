@@ -38,7 +38,8 @@ class User < ApplicationRecord
 
   # ホーム画面用の投稿を取得する
   def home_timeline_posts(latest_cursor: nil, oldest_cursor: nil)
-    Post.where(user: followings).or(Post.where(user: self))
+    Post.eager_load(:user, :likes)
+        .where(user: followings).or(Post.where(user: self))
         .order(id: :desc)
         .limit(50)
         .tap do |query|
@@ -49,7 +50,8 @@ class User < ApplicationRecord
 
   # ユーザー詳細画面用の投稿を取得する
   def timeline_posts(latest_cursor: nil, oldest_cursor: nil)
-    Post.where(user: self)
+    Post.eager_load(:user, :likes)
+        .where(user: self)
         .order(id: :desc)
         .limit(50)
         .tap do |query|
@@ -66,5 +68,17 @@ class User < ApplicationRecord
   # 投稿のいいねを解除する
   def unlike_post(post)
     liked_posts.destroy(post)
+  end
+
+  def has_been_followed_by?(user)
+    followers.include?(user)
+  end
+
+  def follow(user)
+    followings << user
+  end
+
+  def unfollow(user)
+    followings.destroy(user)
   end
 end

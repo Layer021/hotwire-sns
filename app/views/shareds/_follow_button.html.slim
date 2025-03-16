@@ -1,0 +1,4 @@
+= button_to user_user_follows_path(user), \
+    method: has_been_followed ? :delete : :post, \
+    class: "btn btn-outline #{has_been_followed ? 'btn-error' : ''}" do
+  = has_been_followed ? "フォロー解除" : "フォローする"

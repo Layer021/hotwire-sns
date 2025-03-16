@@ -1,0 +1,19 @@
+.flex.items-center.gap-4
+  .flex
+    = link_to user_user_path(user), class: "btn btn-ghost btn-circle avatar" do
+      .w-10.rounded-full
+        = image_tag "avatar.svg"
+    .flex-1.ml-2
+      = link_to user.name, user_user_path(user), class: "font-bold hover:underline"
+      .flex.text-xs.gap-2.mt-1
+        span
+          | フォロー数：
+          span.font-bold
+            = user.followings.count
+        span
+          | フォロワー数：
+          span.font-bold
+            = user.followers.count
+  - if show_follow_button
+    .ml-auto
+      = render "shareds/follow_button", user:, has_been_followed:

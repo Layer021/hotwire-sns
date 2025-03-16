@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   get "users/:id" => "user/users#show", as: :user_user
 
+  post "users/:id/follows" => "user/following_users#create", as: :user_user_follows
+  delete "users/:id/follows" => "user/following_users#destroy", as: :user_user_unfollow
+
   # Defines the root path route ("/")
   root to: "user/home#index"
 end
