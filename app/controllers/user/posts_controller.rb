@@ -13,8 +13,12 @@ class User::PostsController < User::ApplicationController
 
   def destroy
     @post = current_user.posts.find(params[:id])
-    @post.destroy
-    redirect_to root_path, notice: 'Post was successfully destroyed.'
+    success = @post.destroy
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.turbo_stream { render_destroy_turbo_stream(success) }
+    end
   end
 
   private
@@ -40,5 +44,11 @@ class User::PostsController < User::ApplicationController
       end
 
       render turbo_stream: turbo_streams, status:
+    end
+
+    def render_destroy_turbo_stream(success)
+      status = success ? :ok : :unprocessable_entity
+      response = success ? turbo_stream.remove("post_#{params[:id]}") : nil
+      render turbo_stream: response, status: status
     end
 end
