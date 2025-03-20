@@ -7,6 +7,8 @@ WORKDIR /project/hotwire_sns
 
 COPY Gemfile /project/hotwire_sns/Gemfile
 COPY Gemfile.lock /project/hotwire_sns/Gemfile.lock
+COPY package.json /project/hotwire_sns/package.json
+COPY yarn.lock /project/hotwire_sns/yarn.lock
 
 RUN bundle install
 RUN yarn install
