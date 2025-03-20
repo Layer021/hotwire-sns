@@ -1,7 +1,7 @@
 header.navbar.bg-base-100.shadow-sm.sticky.inset-x-0.top-0.z-50
   .navbar-start
   .navbar-center
-    = link_to root_path, class: "btn btn-ghost text-xl" do
+    = link_to user_home_path, class: "btn btn-ghost text-xl" do
       | Hotwire SNS Sample
   .navbar-end
     - if user_signed_in?
@@ -15,7 +15,7 @@ header.navbar.bg-base-100.shadow-sm.sticky.inset-x-0.top-0.z-50
             circle[cx="11" cy="11" r="8"]
             path[d="m21 21-4.3-4.3"]
         = text_field_tag :q, nil, type: :search, placeholder: "ユーザー検索"
-        = button_tag type: :submit, class: "hidden"
+        = button_tag type: :submit, class: "hidden", name: nil
       .dropdown.dropdown-end.mr-2
         .btn.btn-ghost.btn-circle.avatar[tabindex="0" role="button"]
           .w-10.rounded-full
