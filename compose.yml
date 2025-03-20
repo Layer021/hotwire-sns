@@ -9,8 +9,8 @@ services:
     ports:
       - "14000:3000"
     depends_on:
-      - mysql
-      - mysql-test
+      - postgres
+      - postgres-test
 
   postgres:
     image: postgres:13
