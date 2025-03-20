@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-create_table "admins", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "管理者" do |t|
+create_table "admins", id: :bigint, force: :cascade, comment: "管理者" do |t|
   t.string :name, limit: 191, default: "", null: false
   t.string :email, default: "", null: false
   # t.string :encrypted_password, null: false, default: ""
@@ -9,7 +9,7 @@ create_table "admins", id: :bigint, unsigned: true, force: :cascade, options: "E
   t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
 end
 
-create_table "users", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "ユーザー" do |t|
+create_table "users", id: :bigint, force: :cascade, comment: "ユーザー" do |t|
   t.string :name, limit: 191, default: "", null: false
   t.string :email, default: "", null: false
   t.string :encrypted_password, null: false, default: ""
@@ -20,8 +20,8 @@ create_table "users", id: :bigint, unsigned: true, force: :cascade, options: "EN
   t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
 end
 
-create_table "posts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "投稿" do |t|
-  t.bigint :user_id, null: false, unsigned: true
+create_table "posts", id: :bigint, force: :cascade, comment: "投稿" do |t|
+  t.bigint :user_id, null: false
   t.text :body, null: false
   t.timestamps precision: 6, null: false
 
@@ -30,9 +30,9 @@ end
 add_foreign_key "posts", "users", column: "user_id", on_delete: :cascade
 
 # いいねした投稿を管理するテーブル
-create_table "liked_posts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "いいねした投稿" do |t|
-  t.bigint :post_id, null: false, unsigned: true
-  t.bigint :user_id, null: false, unsigned: true
+create_table "liked_posts", id: :bigint, force: :cascade, comment: "いいねした投稿" do |t|
+  t.bigint :post_id, null: false
+  t.bigint :user_id, null: false
   t.timestamps precision: 6, null: false
 
   t.index ["post_id", "user_id"], name: "index_liked_posts_on_post_id_and_user_id", unique: true, using: :btree
@@ -43,9 +43,9 @@ add_foreign_key "liked_posts", "posts", column: "post_id", on_delete: :cascade
 add_foreign_key "liked_posts", "users", column: "user_id", on_delete: :cascade
 
 # folllow状態を管理するテーブル
-create_table "following_users", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "フォロー" do |t|
-  t.bigint :user_id, null: false, unsigned: true, comment: "フォローする側のユーザーID"
-  t.bigint :following_user_id, null: false, unsigned: true, comment: "フォローされる側のユーザーID"
+create_table "following_users", id: :bigint, force: :cascade, comment: "フォロー" do |t|
+  t.bigint :user_id, null: false, comment: "フォローする側のユーザーID"
+  t.bigint :following_user_id, null: false, comment: "フォローされる側のユーザーID"
   t.timestamps precision: 6, null: false
 
   t.index ["user_id", "following_user_id"], unique: true, using: :btree, name: "index_following_users_on_user_id_and_following_user_id"

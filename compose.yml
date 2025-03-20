@@ -12,28 +12,52 @@ services:
       - mysql
       - mysql-test
 
-  mysql:
-    image: mysql:5.7
+  postgres:
+    image: postgres:13
     platform: linux/x86_64
     volumes:
-      - ./docker/data/mysql:/var/lib/mysql
+      - ./docker/data/postgres:/var/lib/postgresql/data
     ports:
-      - "14306:3306"
+      - "15432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: hotwire_sns_dev
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: hotwire_sns_dev
 
-  mysql-test:
-    image: mysql:5.7
+  postgres-test:
+    image: postgres:13
     platform: linux/x86_64
     volumes:
-      - ./docker/data/mysql-test:/var/lib/mysql
+      - ./docker/data/postgres-test:/var/lib/postgresql/data
     ports:
-      - "14307:3306"
+      - "15433:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: hotwire_sns_test
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: hotwire_sns_test
+
+  # mysql:
+  #   image: mysql:5.7
+  #   platform: linux/x86_64
+  #   volumes:
+  #     - ./docker/data/mysql:/var/lib/mysql
+  #   ports:
+  #     - "14306:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_DATABASE: hotwire_sns_dev
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: secret
+
+  # mysql-test:
+  #   image: mysql:5.7
+  #   platform: linux/x86_64
+  #   volumes:
+  #     - ./docker/data/mysql-test:/var/lib/mysql
+  #   ports:
+  #     - "14307:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_DATABASE: hotwire_sns_test
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: secret

@@ -1,6 +1,6 @@
 FROM ruby:3.2.3
 
-RUN apt-get update -qq && apt-get install -y nodejs npm default-mysql-client watchman
+RUN apt-get update -qq && apt-get install -y nodejs npm default-mysql-client postgresql-client watchman
 RUN npm install -g yarn
 
 WORKDIR /project/hotwire_sns
@@ -13,8 +13,8 @@ RUN yarn install
 
 COPY . /project/hotwire_sns
 
-ENTRYPOINT ["/project/hotwire_sns/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/project/hotwire_sns/bin/docker-entrypoint"]
 
 EXPOSE 3000
 
-CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["./bin/rails", "server", "-e", "production", "-b", "0.0.0.0"]
