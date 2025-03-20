@@ -19,7 +19,7 @@ header.navbar.bg-base-100.shadow-sm.sticky.inset-x-0.top-0.z-50
       .dropdown.dropdown-end.mr-2
         .btn.btn-ghost.btn-circle.avatar[tabindex="0" role="button"]
           .w-10.rounded-full
-            = image_tag "avatar.svg", alt: current_user.name
+            = image_tag current_user.thumbnail_url, alt: current_user.name
         ul.menu.menu-sm.dropdown-content.bg-base-100.rounded-box.z-1.mt-3.w-52.p-2.shadow[tabindex="0"]
           li.col-span-full
             = button_to destroy_user_session_path, method: "delete", \

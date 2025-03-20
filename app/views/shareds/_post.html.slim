@@ -4,7 +4,7 @@
         class: "btn btn-ghost btn-circle avatar", \
         data: { turbo_frame: "_top" } do
       .w-10.rounded-full
-        = image_tag "avatar.svg"
+        = image_tag post.user.thumbnail_url, alt: post.user.name
     .flex-1
       .flex
         = link_to post.user.name, user_user_path(post.user), \
