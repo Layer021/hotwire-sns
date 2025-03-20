@@ -9,7 +9,7 @@ class User::UsersController < User::ApplicationController
     redirect_back fallback_location: user_home_path if @keyword.blank?
 
     # TODO: ページネーション対応
-    @users = User.search_by_keyword(@keyword)
+    @users = User.eager_load(:followings, :followers).search_by_keyword(@keyword)
   end
 
   def show

@@ -14,11 +14,11 @@
           span
             | フォロー数：
             span.font-bold
-              = user.followings.count
+              = user.followings.size
           span
             | フォロワー数：
             span.font-bold
-              = user.followers.count
+              = user.followers.size
     - if show_follow_button
       .ml-auto
         = render "shareds/follow_button", user:, has_been_followed:

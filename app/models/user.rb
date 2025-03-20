@@ -37,12 +37,12 @@ class User < ApplicationRecord
            source: :user
 
   scope :search_by_keyword, ->(keyword) {
-    where("name LIKE ?", "%#{keyword}%")
+    where("users.name LIKE ?", "%#{keyword}%")
   }
 
   # ホーム画面用の投稿を取得する
   def home_timeline_posts(top_cursor: nil, bottom_cursor: nil)
-    Post.eager_load(:user, :likes)
+    Post.eager_load(:user, :liked_users)
         .where(user: followings).or(Post.where(user: self))
         .order(id: :desc)
         .limit(50)
@@ -54,7 +54,7 @@ class User < ApplicationRecord
 
   # ユーザー詳細画面用の投稿を取得する
   def timeline_posts(top_cursor: nil, bottom_cursor: nil)
-    Post.eager_load(:user, :likes)
+    Post.eager_load(:user, :liked_users)
         .where(user: self)
         .order(id: :desc)
         .limit(50)
