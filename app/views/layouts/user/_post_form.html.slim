@@ -1,4 +1,9 @@
-= form_with model: Post.new, url: user_posts_path, method: :post do |form|
-  fieldset.fieldset
-    = form.text_area :body, class: "textarea", placeholder: "最大200文字まで入力できます", rows: 4
-    = form.submit "投稿する", class: "btn btn-neutral mt-2"
+= turbo_frame_tag "post_form" do
+  = form_with model: post, url: user_posts_path, method: :post do |form|
+    fieldset.fieldset
+      div
+        = form.text_area :body, class: "textarea", placeholder: "最大200文字まで入力できます", rows: 4, required: true
+        - error_message = form.object.errors.full_messages_for(:body).first
+        - if error_message.present?
+          p.validator-hint.text-error = error_message
+      = form.submit "投稿する", class: "btn btn-neutral mt-2"

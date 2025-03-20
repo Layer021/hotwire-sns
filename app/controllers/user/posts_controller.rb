@@ -3,10 +3,11 @@
 class User::PostsController < User::ApplicationController
   def create
     @post = current_user.posts.build(create_params)
-    if @post.save
-      redirect_to root_path, notice: 'Post was successfully created.'
-    else
-      redirect_to root_path, alert: 'Post was not created.'
+    success = @post.save
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.turbo_stream { render_create_turbo_stream(success) }
     end
   end
 
@@ -20,5 +21,24 @@ class User::PostsController < User::ApplicationController
 
     def create_params
       params.require(:post).permit(:body)
+    end
+
+    def render_create_turbo_stream(success)
+      status = success ? :created : :unprocessable_entity
+      turbo_streams = [
+        turbo_stream.replace("post_form", partial: "layouts/user/post_form", locals: {
+          post: success ? Post.new : @post
+        })
+      ]
+
+      if success
+        turbo_streams << turbo_stream.prepend("home_timeline_load_newer", partial: "shareds/post", locals: {
+          post: @post,
+          has_been_liked: false,
+          show_delete_button: true
+        })
+      end
+
+      render turbo_stream: turbo_streams, status:
     end
 end
