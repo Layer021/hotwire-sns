@@ -1,0 +1,9 @@
+- if alert || notice
+  .toast.toast-end.z-50
+    - if notice
+      .alert.alert-info.opacity-0.transition-opacity.duration-500[data-controller="alert"]
+        span = notice
+    - if alert
+      .alert.alert-error.opacity-0.transition-opacity.duration-500[data-controller="alert"]
+        span = alert
+  
