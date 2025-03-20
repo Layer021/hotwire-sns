@@ -1,6 +1,12 @@
+.flex.mb-4
+  h1.text-2xl.font-bold
+    | ホーム
+  .ml-auto
+    = render "refresh_timeline", top_cursor: @top_cursor
 .card.card-border.bg-base-100.border-base-300.overflow-hidden
   .list
-    - @posts.each do |post|
-      = render "shareds/post", post:, \
-          has_been_liked: post.has_been_liked_by?(current_user), \
-          show_delete_button: post.user == current_user
+    = render "posts", \
+        posts: @posts, \
+        current_user: current_user, \
+        bottom_cursor: @bottom_cursor, \
+        top_cursor: @top_cursor

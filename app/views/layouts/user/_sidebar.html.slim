@@ -1,4 +1,4 @@
-div[class="flex-none w-[350px]"]
+#sidebar[class="flex-none w-[350px]" data-turbo-permanent="true"]
   div class="card card-border bg-base-100 border-base-300 sticky top-[84px] z-20"
     .card-body.p-4
       = render "shareds/user", user: current_user, show_follow_button: false

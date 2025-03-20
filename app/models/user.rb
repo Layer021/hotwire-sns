@@ -41,26 +41,26 @@ class User < ApplicationRecord
   }
 
   # ホーム画面用の投稿を取得する
-  def home_timeline_posts(latest_cursor: nil, oldest_cursor: nil)
+  def home_timeline_posts(top_cursor: nil, bottom_cursor: nil)
     Post.eager_load(:user, :likes)
         .where(user: followings).or(Post.where(user: self))
         .order(id: :desc)
         .limit(50)
         .tap do |query|
-          query.where!("id < ?", latest_cursor) if latest_cursor
-          query.where!("id > ?", oldest_cursor) if oldest_cursor
+          query.where!("posts.id > ?", top_cursor) if top_cursor
+          query.where!("posts.id < ?", bottom_cursor) if bottom_cursor
         end
   end
 
   # ユーザー詳細画面用の投稿を取得する
-  def timeline_posts(latest_cursor: nil, oldest_cursor: nil)
+  def timeline_posts(top_cursor: nil, bottom_cursor: nil)
     Post.eager_load(:user, :likes)
         .where(user: self)
         .order(id: :desc)
-        .limit(50)
+        .limit(20)
         .tap do |query|
-          query.where!("id < ?", latest_cursor) if latest_cursor
-          query.where!("id > ?", oldest_cursor) if oldest_cursor
+          query.where!("posts.id > ?", top_cursor) if top_cursor
+          query.where!("posts.id < ?", bottom_cursor) if bottom_cursor
         end
   end
 
