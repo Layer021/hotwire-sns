@@ -1,5 +1,5 @@
 = turbo_frame_tag "home_timeline_refresh" do
-  = link_to root_path(top_cursor:, format: :turbo_stream), method: :get,
+  = link_to user_home_timeline_path(top_cursor:), method: :get,
       class: "btn btn-outline btn-sm" do
     svg[
       xmlns="http://www.w3.org/2000/svg"

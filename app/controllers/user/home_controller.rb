@@ -2,6 +2,12 @@
 
 class User::HomeController < User::ApplicationController
   def index
+    @posts = current_user.home_timeline_posts
+    @top_cursor = @posts.first&.id
+    @bottom_cursor = @posts.last&.id
+  end
+
+  def timeline
     @posts = current_user.home_timeline_posts(
       top_cursor: params[:top_cursor],
       bottom_cursor: params[:bottom_cursor]
@@ -9,10 +15,7 @@ class User::HomeController < User::ApplicationController
     @top_cursor = next_top_cursor
     @bottom_cursor = next_bottom_cursor
 
-    respond_to do |format|
-      format.html
-      format.turbo_stream { render_index_turbo_stream }
-    end
+    render_timeline_turbo_stream
   end
 
   private
@@ -40,7 +43,7 @@ class User::HomeController < User::ApplicationController
       request_newer_posts? ? nil : @posts.last&.id
     end
 
-    def render_index_turbo_stream
+    def render_timeline_turbo_stream
       turbo_streams = [
         turbo_stream.replace(
           "home_timeline_load_#{request_older_posts? ? "older" : "newer"}",
