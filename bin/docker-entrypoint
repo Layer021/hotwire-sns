@@ -2,7 +2,9 @@
 
 # If running the rails server then create or migrate existing database
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
-  ./bin/rails db:prepare
+  bundle exec rails assets:precompile
+  bundle exec rails assets:clean
+  bundle exec ridgepole -c config/database.yml --f db/Schemafile -E production --apply --dump-with-default-fk-name --verbose
 fi
 
 exec "${@}"
