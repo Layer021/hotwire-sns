@@ -1,5 +1,5 @@
 - if top_cursor.present?
-  = turbo_frame_tag "home_timeline_load_newer"
+  #home_timeline_load_newer
 - posts.each do |post|
   = render "shareds/post", post:, \
       has_been_liked: post.has_been_liked_by?(current_user), \
