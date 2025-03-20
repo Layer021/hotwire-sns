@@ -7,3 +7,4 @@
 - if bottom_cursor.present?
   / NOTE: format: :turbo_stream を指定しないと、TurboStreamでレスポンスが返ってこない
   = turbo_frame_tag "home_timeline_load_older", loading: "lazy", src: root_path(bottom_cursor:, format: :turbo_stream)
+    = render "shareds/loading"

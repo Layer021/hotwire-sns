@@ -4,11 +4,9 @@ class User::UsersController < User::ApplicationController
   def index
     @keyword = params[:q]
 
-    if @keyword.blank?
-      redirect_to root_path
-      return
-    end
+    redirect_to root_path if @keyword.blank?
 
+    # TODO: ページネーション対応
     @users = User.search_by_keyword(@keyword)
   end
 

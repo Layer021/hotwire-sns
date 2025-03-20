@@ -57,7 +57,7 @@ class User < ApplicationRecord
     Post.eager_load(:user, :likes)
         .where(user: self)
         .order(id: :desc)
-        .limit(20)
+        .limit(50)
         .tap do |query|
           query.where!("posts.id > ?", top_cursor) if top_cursor
           query.where!("posts.id < ?", bottom_cursor) if bottom_cursor
