@@ -9,11 +9,16 @@
 #   end
 
 class Seeder
+  ORDER = [Admin, User, Post, FollowingUser]
+
   def run
     path = Rails.root.join("db", "seeds", "*.yml")
     files = Dir.glob(path)
+    ordered_files = ORDER.map do |model|
+      files.find { |file| File.basename(file, ".yml").classify == model.name }
+    end.compact
 
-    files.each do |file|
+    ordered_files.each do |file|
       model, attrs = load_seed_file(file)
       ActiveRecord::Base.connection.disable_referential_integrity do
         if model == User
