@@ -1,24 +1,28 @@
-# README
+# Hotwire SNS Sample
+Hotwireを使ったSNSのサンプルアプリケーションです。このアプリケーションには以下の機能があります。
+- ログイン機能
+- 投稿機能
+- いいね機能
+- フォロー機能
+- ユーザー検索機能
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 使用したライブラリなど
+- Docker
+- Ruby on Rails
+- Hotwire
+- Devise
+- Tailwind CSS + daisyUI
 
-Things you may want to cover:
+## スクリーンショット
+<img width="1359" alt="スクリーンショット 2025-03-20 21 42 42" src="https://github.com/user-attachments/assets/7aee9ec2-b00f-438b-ac16-528aed4506f5" />
 
-* Ruby version
+## セットアップ
+```
+$ make all
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 起動
+```
+$ make run
+```
+http://localhost:14000 にアクセス
