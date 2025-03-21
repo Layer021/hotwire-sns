@@ -31,16 +31,16 @@ migrate:
 	docker compose run --rm web bundle exec dotenv ridgepole -c config/database.yml -f db/Schemafile -E development --apply --dump-with-default-fk-name
 	docker compose run --rm web bundle exec dotenv ridgepole -c config/database.yml -f db/Schemafile -E test --apply --dump-with-default-fk-name
 
-.PHONY: fixture
-fixture:
-	docker compose run --rm web bundle exec rake db:fixtures:load RAILS_ENV=development
+.PHONY: seed
+seed:
+	docker compose run --rm web rails db:seed
 
 .PHONY: reset-db
 reset-db:
-	docker compose run --rm web bundle exec rake db:drop db:create db:migrate db:seed RAILS_ENV=development
-	docker compose run --rm web bundle exec rake db:drop db:create db:migrate db:seed RAILS_ENV=test
+	docker compose run --rm web bundle exec rake db:drop db:create RAILS_ENV=development
+	docker compose run --rm web bundle exec rake db:drop db:create RAILS_ENV=test
 	make migrate
-	make fixture
+	make seed
 
 .PHONY: test
 test:

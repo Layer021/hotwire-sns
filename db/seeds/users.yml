@@ -1,26 +1,23 @@
-user001:
-  id: 1
+- id: 1
   name: "テストユーザーA"
   email: "test_a@example.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  encrypted_password: "password"
   thumbnail_url: "avatar_a.svg"
   created_at: "2024-03-20 00:00:00"
   updated_at: "2024-03-20 00:00:00"
 
-user002:
-  id: 2
+- id: 2
   name: "テストユーザーB"
   email: "test_b@example.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  encrypted_password: "password"
   thumbnail_url: "avatar_b.svg"
   created_at: "2024-03-20 00:00:00"
   updated_at: "2024-03-20 00:00:00"
 
-user003:
-  id: 3
+- id: 3
   name: "テストユーザーC"
   email: "test_c@example.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  encrypted_password: "password"
   thumbnail_url: "avatar_c.svg"
   created_at: "2024-03-20 00:00:00"
   updated_at: "2024-03-20 00:00:00"

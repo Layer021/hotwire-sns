@@ -5,7 +5,7 @@ if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
   bundle exec rails assets:precompile
   bundle exec rails assets:clean
   bundle exec ridgepole -c config/database.yml --f db/Schemafile -E production --apply --dump-with-default-fk-name --verbose
-  bundle exec rake db:fixtures:load
+  bundle exec rails db:seed
 fi
 
 exec "${@}"

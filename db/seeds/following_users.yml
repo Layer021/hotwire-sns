@@ -1,24 +1,19 @@
-follow001:
-  id: 1
+- id: 1
   user_id: 1
   following_user_id: 2
 
-follow002:
-  id: 2 
+- id: 2 
   user_id: 1
   following_user_id: 3
 
-follow003:
-  id: 3
+- id: 3
   user_id: 2
   following_user_id: 1
 
-follow004:
-  id: 4
+- id: 4
   user_id: 2
   following_user_id: 3
 
-follow005:
-  id: 5
+- id: 5
   user_id: 3
   following_user_id: 2
